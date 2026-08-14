@@ -1,0 +1,23 @@
+bundle:
+  name: databricks-telematics-pipeline
+
+include:
+  - resources/*.yml
+
+targets:
+
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://dbc-389fa382-fd88.cloud.databricks.com
+
+  test:
+    mode: development
+    workspace:
+      host: https://dbc-389fa382-fd88.cloud.databricks.com
+
+  prod:
+    mode: production
+    workspace:
+      host: https://dbc-389fa382-fd88.cloud.databricks.com
