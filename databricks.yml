@@ -1,23 +1,45 @@
 bundle:
-  name: databricks-telematics-pipeline
+  name: databricks-telematics-takehome
 
 include:
-  - resources/*.yml
+  - resources/resources.yml
+  - resources/jobs.yml
+
+experimental:
+  skip_name_prefix_for_schema: true
+
+variables:
+  schema_name:
+    description: "Target Unity Catalog schema"
+    default: dev
 
 targets:
 
   dev:
     mode: development
     default: true
+
+    variables:
+      schema_name: dev
+
     workspace:
       host: https://dbc-389fa382-fd88.cloud.databricks.com
 
   test:
     mode: development
+
+    variables:
+      schema_name: test
+
     workspace:
       host: https://dbc-389fa382-fd88.cloud.databricks.com
 
   prod:
     mode: production
+
+    variables:
+      schema_name: prod
+
     workspace:
       host: https://dbc-389fa382-fd88.cloud.databricks.com
+      root_path: /Workspace/Users/codingninja977@gmail.com/.bundle/${bundle.name}/${bundle.target}

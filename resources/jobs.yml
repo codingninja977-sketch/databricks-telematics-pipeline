@@ -1,0 +1,58 @@
+resources:
+  jobs:
+
+    setup_truck_details:
+      name: ${bundle.target}-setup-truck-details
+
+      tasks:
+        - task_key: seed_truck_details
+
+          spark_python_task:
+            python_file: ../src/seed_truck_details.py
+            parameters:
+              - ${var.schema_name}
+
+          environment_key: default
+
+      environments:
+        - environment_key: default
+          spec:
+            environment_version: "2"
+
+
+    generate_gps_events:
+      name: ${bundle.target}-generate-gps-events
+
+      tasks:
+        - task_key: generate_gps
+
+          spark_python_task:
+            python_file: ../src/generate_gps.py
+            parameters:
+              - ${var.schema_name}
+              - "180"
+
+          environment_key: default
+
+      environments:
+        - environment_key: default
+          spec:
+            environment_version: "2"
+    
+    bronze_ingestion:
+      name: ${bundle.target}-bronze-ingestion
+
+      tasks:
+        - task_key: bronze_ingest
+
+          spark_python_task:
+            python_file: ../src/bronze_ingest.py
+            parameters:
+              - ${var.schema_name}
+
+          environment_key: default
+
+      environments:
+        - environment_key: default
+          spec:
+            environment_version: "2"

@@ -1,0 +1,14 @@
+resources:
+  schemas:
+    schema:
+      name: ${var.schema_name}
+      catalog_name: telematics
+      comment: "Telematics ${var.schema_name} schema"
+
+  volumes:
+    landing:
+      name: landing
+      catalog_name: telematics
+      schema_name: ${var.schema_name}
+      volume_type: MANAGED
+      comment: "GPS telemetry landing volume"
