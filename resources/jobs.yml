@@ -153,3 +153,21 @@ resources:
 
           spec:
             environment_version: "2"
+
+    migrate_truck_details:
+      name: ${bundle.target}-migrate-truck-details
+
+      tasks:
+        - task_key: add_vehicle_type
+
+          spark_python_task:
+            python_file: ../src/run_migration.py
+            parameters:
+              - ${var.schema_name}
+
+          environment_key: default
+
+      environments:
+        - environment_key: default
+          spec:
+            environment_version: "2"
